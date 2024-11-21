@@ -14,7 +14,7 @@ import java.util.UUID;
 public class Main implements RequestHandler<Map<String, Object>, Map<String, String>> {
 
    private final ObjectMapper objectMapper = new ObjectMapper();
-   private final S3Client s3Client = S3Client.builder().build();
+   private final S3Client s3Client = S3Client.builder().build(); // Conector do bucket S3
 
    @Override
    public Map<String, String> handleRequest(Map<String, Object> input, Context context) {
@@ -31,7 +31,7 @@ public class Main implements RequestHandler<Map<String, Object>, Map<String, Str
       // Extrai a url original e o timestamp do body
       String originalUrl = bodyMap.get("originalUrl");
       String expirationTime = bodyMap.get("expirationTime");
-      long expirationTimeInSeconds = Long.parseLong(expirationTime) * 3600;
+      long expirationTimeInSeconds = Long.parseLong(expirationTime);
 
       // Gera o uuid da url de forma tosca (somente para exemplo prático)
       String shortUrlCode = UUID.randomUUID().toString().substring(0, 8);
@@ -39,7 +39,7 @@ public class Main implements RequestHandler<Map<String, Object>, Map<String, Str
       UrlData urlData = new UrlData(originalUrl, expirationTimeInSeconds);
 
       try {
-         //
+         // Transforma o objeto em JSON
          String urlDataJson = objectMapper.writeValueAsString(urlData);
 
          PutObjectRequest request = PutObjectRequest.builder()

@@ -69,3 +69,14 @@ public class Main implements RequestHandler<Map<String, Object>, Map<String, Str
     </plugins>
 </build>
 ```
+
+5. Para fazer a conexão com o `bucket S3` incluímos também a dependência da SDK da AWS no `pom.xml`.
+
+```xml
+<dependency>
+    <groupId>software.amazon.awssdk</groupId>
+    <artifactId>s3</artifactId>
+    <version>2.25.27</version>
+</dependency>
+```
+
